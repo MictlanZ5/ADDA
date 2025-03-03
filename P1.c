@@ -42,6 +42,14 @@ Resultado encontrarDuplicado(int n, int A[]) {
     return resultado;
 }
 
+
+/*
+Para generar la grafica se utiliza el programa Gnuplot
+De no tenerse el programa no graficara lo que se pide
+De ser este el caso descargarse en 
+https://sourceforge.net/projects/gnuplot/
+Y agregar Gnpult al path 
+*/
 void graficar(int n, int A[], Resultado resultado){
     FILE *gp = popen("gnuplot -persistent", "w");
     fprintf(gp, "set title 'Valores generados y duplicado encontrado'\n");
