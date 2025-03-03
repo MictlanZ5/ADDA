@@ -8,23 +8,8 @@ typedef struct {
     int pos2;
 } Resultado;
 
-Resultado encontrarDuplicado(int n) {
-    // Inicializar el generador de números aleatorios
-    srand(time(0));
 
-    // Crear el arreglo con valores aleatorios entre 0 y 3n
-    int A[n];
-    for (int i = 0; i < n; i++) {
-        A[i] = rand() % (3 * n + 1);
-    }
-
-    // Mostrar el arreglo generado (opcional para depuración)
-    printf("Arreglo generado: ");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", A[i]);
-    }
-    printf("\n");
-
+Resultado encontrarDuplicado(int n, int A[]) {
     // Crear arreglos para almacenar las posiciones de los valores en cada mitad
     int mitad = n / 2;
     int primera_mitad[3 * n + 1];
@@ -37,7 +22,7 @@ Resultado encontrarDuplicado(int n) {
     }
 
     // Guardamos los valores y posiciones en cada mitad
-    for (int i = 0; i < mitad +1; i++) {
+    for (int i = 0; i < mitad + 1; i++) {
         primera_mitad[A[i]] = i;
     }
     for (int i = mitad + 1; i < n; i++) {
@@ -57,9 +42,38 @@ Resultado encontrarDuplicado(int n) {
     return resultado;
 }
 
+void graficar(int n, int A[], Resultado resultado){
+    FILE *gp = popen("gnuplot -persistent", "w");
+    fprintf(gp, "set title 'Valores generados y duplicado encontrado'\n");
+    fprintf(gp, "set xlabel 'Índice'\n");
+    fprintf(gp, "set ylabel 'Valor'\n");
+    fprintf(gp, "plot '-' with points pointtype 7 title 'Valores', '-' with points pointtype 5 lc rgb 'red' title 'Duplicado'\n");
+    
+    for (int i = 0; i < n; i++) {
+        fprintf(gp, "%d %d\n", i, A[i]);
+    }
+    fprintf(gp, "e\n");
+    
+    if (resultado.valor != -1) {
+        fprintf(gp, "%d %d\n", resultado.pos1, resultado.valor);
+        fprintf(gp, "%d %d\n", resultado.pos2, resultado.valor);
+    }
+    fprintf(gp, "e\n");
+    
+    pclose(gp); 
+}
+
 int main() {
-    int n = 10; // Tamaño del arreglo
-    Resultado resultado = encontrarDuplicado(n);
+     // Tamaño del arreglo
+    int n = 10;
+    srand(time(0));
+    int A[n];
+    for(int i = 0; i <n; i++){
+        A[i] = rand() % (3 * n + 1);
+    }
+
+    Resultado resultado = encontrarDuplicado(n, A);
+    graficar(n, A, resultado);
 
     if (resultado.valor != -1) {
         printf("Valor encontrado: %d, Posiciones: %d y %d\n", resultado.valor, resultado.pos1, resultado.pos2);
@@ -68,4 +82,4 @@ int main() {
     }
 
     return 0;
-}
+} 
