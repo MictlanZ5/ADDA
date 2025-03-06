@@ -1,3 +1,17 @@
+/*
+Escuela Superior de Computo (ESCOM IPN)
+Grupo: 
+3CM3
+Autores:
+Segundo Cantero Jonathan Axel 
+Zuñiga Alberto (Completa tu nombre por favor jaja)
+
+
+Windows: gcc Fibonacci.c -o Fibo.exe
+Linux: gcc -o Fibonacci.out Fibonacci.c 
+*/
+
+
 #include <stdio.h>
 #include <time.h>
 
@@ -10,7 +24,7 @@ int fibonacci(int n){
 void graficarResultado(){
     FILE *gp = popen("gnuplot -persistant", "w");
     if(!gp){
-        prontf("Error al abrir Gnuplot \n");
+        printf("Error al abrir Gnuplot \n");
         return;
     }
 
@@ -33,17 +47,22 @@ int main(){
     }
 
     printf("La serie Fibonacci es: ");
-    //Medimo el tiempo de ejecucion de cada calculo
-    clock_t inicio = clock();
-    int resultado = fibonacci(i);
-    clock_t fin = clock();
-
-    double tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
-
-    printf("");
-
     for(int i = 0; i <= n; i++){
-        printf("%d ", fibonacci(i));
+        //Medimo el tiempo de ejecucion de cada calculo
+        clock_t inicio = clock();
+        int resultado = fibonacci(i);
+        clock_t fin = clock();
+
+        double tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
+
+        printf("%d ", resultado);
+        fprintf(archivo, "%d %.6f \n", i, tiempo);
     }
+    printf("\n");
+
+    fclose(archivo);
+
+    graficarResultado();
+
     return 0;
 }
