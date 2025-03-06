@@ -11,7 +11,6 @@ Linux: gcc -o Fibonacci.out Fibonacci.c
 
 */
 
-
 #include <stdio.h>
 #include <time.h>
 
