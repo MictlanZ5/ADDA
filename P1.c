@@ -72,6 +72,7 @@ void graficar(int n, int A[], Resultado resultado){
 }
 
 int main() {
+    printff("pito");
      // Tamaño del arreglo
     int n = 10;
     srand(time(0));
