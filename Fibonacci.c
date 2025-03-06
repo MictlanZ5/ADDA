@@ -4,7 +4,7 @@ Grupo:
 3CM3
 Autores:
 Segundo Cantero Jonathan Axel 
-Zuñiga Alberto (Completa tu nombre por favor jaja)
+Zuñiga Lara José Alberto)
 
 Windows: gcc Fibonacci.c -o Fibo.exe
 Linux: gcc -o Fibonacci.out Fibonacci.c 
